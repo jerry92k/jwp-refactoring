@@ -19,6 +19,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.ApplicationEventPublisher;
 import kitchenpos.tablegroup.TableGroupTestFixtures;
 import kitchenpos.ordertable.vo.NumberOfGuests;
+import kitchenpos.tablegroup.dto.TableId;
 
 @ExtendWith(MockitoExtension.class)
 class TableGroupServiceTest {
@@ -36,9 +37,8 @@ class TableGroupServiceTest {
     @Test
     void create() {
         //given
-        List<OrderTable> orderTables = Arrays.asList(
-            new OrderTable(1L, new NumberOfGuests(6), true),
-            new OrderTable(2L, new NumberOfGuests(3), true));
+        List<TableId> orderTables = Arrays.asList(
+           new TableId(1L), new TableId(2L));
         TableGroupRequest tableGroupRequest = TableGroupTestFixtures.convertToTableGroupRequest(
             orderTables);
         TableGroup tableGroup = new TableGroup(1L);
@@ -48,6 +48,6 @@ class TableGroupServiceTest {
         TableGroupResponse savedTableGroup = tableGroupService.create(tableGroupRequest);
 
         //then
-        assertThat(savedTableGroup.getCreatedDate()).isEqualTo(tableGroup.getCreatedDate());
+        assertThat(savedTableGroup.getId()).isEqualTo(tableGroup.getId());
     }
 }

@@ -1,11 +1,12 @@
 package kitchenpos.ordertable.domain;
 
-import kitchenpos.ordertable.event.GroupEvent;
-import kitchenpos.ordertable.event.GroupInfo;
-import kitchenpos.ordertable.event.UngroupEvent;
+import kitchenpos.tablegroup.event.GroupEvent;
+import kitchenpos.tablegroup.event.GroupInfo;
 import kitchenpos.ordertable.exception.DuplicateTablesException;
 import kitchenpos.ordertable.exception.IllegalGroupingTableStateException;
 import kitchenpos.ordertable.exception.NotEnoughTablesException;
+import kitchenpos.tablegroup.event.UngroupEvent;
+
 import java.util.List;
 
 import org.springframework.context.event.EventListener;
@@ -24,6 +25,7 @@ public class GroupingEventListener {
         this.orderTableRepository = orderTableRepository;
     }
 
+    // AFTER_COMMIT 으로 처리할 경우 별도의 트렌젝셔널 만들어도 됨.
     @TransactionalEventListener(phase = TransactionPhase.BEFORE_COMMIT)
     public void handleGroupTables(GroupEvent groupEvent) {
         GroupInfo groupInfo = groupEvent.getGroupInfo();

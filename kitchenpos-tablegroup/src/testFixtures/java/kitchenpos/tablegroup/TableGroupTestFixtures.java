@@ -2,13 +2,12 @@ package kitchenpos.tablegroup;
 
 import static org.mockito.BDDMockito.given;
 
-import kitchenpos.ordertable.domain.OrderTable;
 import kitchenpos.tablegroup.domain.TableGroup;
 import kitchenpos.tablegroup.domain.TableGroupRepository;
-import kitchenpos.ordertable.dto.OrderTableRequest;
 import kitchenpos.tablegroup.dto.TableGroupRequest;
+import kitchenpos.tablegroup.dto.TableId;
+
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.mockito.ArgumentMatchers;
 
@@ -20,10 +19,7 @@ public class TableGroupTestFixtures {
             .willReturn(tableGroup);
     }
 
-    public static TableGroupRequest convertToTableGroupRequest(List<OrderTable> orderTables) {
-        List<OrderTableRequest> orderTableRequests = orderTables.stream()
-            .map(orderTable -> new OrderTableRequest(orderTable.getId()))
-            .collect(Collectors.toList());
-        return new TableGroupRequest(orderTableRequests);
+    public static TableGroupRequest convertToTableGroupRequest(List<TableId> orderTables) {
+        return new TableGroupRequest(orderTables);
     }
 }

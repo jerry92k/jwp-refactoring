@@ -1,8 +1,9 @@
 package kitchenpos.tablegroup;
 
-import kitchenpos.ordertable.dto.OrderTableRequest;
 import kitchenpos.tablegroup.dto.TableGroupRequest;
 import kitchenpos.tablegroup.dto.TableGroupResponse;
+import kitchenpos.tablegroup.dto.TableId;
+
 import java.util.List;
 
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -25,7 +26,7 @@ public class TableGroupAcceptanceFixtures {
             Void.class);
     }
 
-    public static TableGroupRequest 테이블_그룹_정의(List<OrderTableRequest> orderTables) {
+    public static TableGroupRequest 테이블_그룹_정의(List<TableId> orderTables) {
         return new TableGroupRequest(orderTables);
     }
 }

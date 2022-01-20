@@ -1,4 +1,4 @@
-package kitchenpos.ordertable.event;
+package kitchenpos.tablegroup.event;
 
 import org.springframework.context.ApplicationEvent;
 

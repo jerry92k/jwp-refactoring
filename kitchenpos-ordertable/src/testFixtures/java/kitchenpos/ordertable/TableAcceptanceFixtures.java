@@ -2,6 +2,8 @@ package kitchenpos.ordertable;
 
 import kitchenpos.ordertable.dto.OrderTableRequest;
 import kitchenpos.ordertable.dto.OrderTableResponse;
+import kitchenpos.tablegroup.dto.TableId;
+
 import java.util.List;
 
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -47,8 +49,8 @@ public class TableAcceptanceFixtures {
         return new OrderTableRequest(numOfGuests, orderClose);
     }
 
-    public static OrderTableRequest 테이블_정의(Long tableId) {
-        return new OrderTableRequest(tableId);
+    public static TableId 테이블_정의(Long tableId) {
+        return new TableId(tableId);
     }
 
 }

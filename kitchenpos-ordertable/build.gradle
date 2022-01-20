@@ -8,6 +8,7 @@ jar { enabled = true }
 
 dependencies {
 
+    compile project(':kitchenpos-tablegroup')
     compile project(':kitchenpos-common')
 
     testImplementation(testFixtures(project(":kitchenpos-order")))

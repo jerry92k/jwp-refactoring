@@ -13,7 +13,7 @@ import kitchenpos.common.vo.Price;
 @Embeddable
 public class MenuProducts {
 
-    @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MenuProduct> menuProducts = new ArrayList<>();
 
     protected void changeMenuProducts(List<MenuProduct> inputMenuProducts, Price price) {

@@ -2,12 +2,12 @@ package kitchenpos.tablegroup.application;
 
 import kitchenpos.tablegroup.domain.TableGroup;
 import kitchenpos.tablegroup.domain.TableGroupRepository;
-import kitchenpos.ordertable.dto.OrderTableRequest;
 import kitchenpos.tablegroup.dto.TableGroupRequest;
 import kitchenpos.tablegroup.dto.TableGroupResponse;
-import kitchenpos.ordertable.event.GroupEvent;
-import kitchenpos.ordertable.event.GroupInfo;
-import kitchenpos.ordertable.event.UngroupEvent;
+import kitchenpos.tablegroup.dto.TableId;
+import kitchenpos.tablegroup.event.GroupEvent;
+import kitchenpos.tablegroup.event.GroupInfo;
+import kitchenpos.tablegroup.event.UngroupEvent;
 import kitchenpos.tablegroup.exception.TableGroupNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,7 +30,7 @@ public class TableGroupService {
 
     @Transactional
     public TableGroupResponse create(final TableGroupRequest tableGroupRequest) {
-        final List<OrderTableRequest> orderTableRequests = tableGroupRequest.getOrderTables();
+        final List<TableId> orderTableRequests = tableGroupRequest.getOrderTables();
         List<Long> orderTableIds = extractOrderTableIds(orderTableRequests);
 
         TableGroup savedTableGroup = tableGroupRepository.save(new TableGroup());
@@ -40,9 +40,9 @@ public class TableGroupService {
         return TableGroupResponse.from(savedTableGroup);
     }
 
-    private List<Long> extractOrderTableIds(List<OrderTableRequest> orderTableRequests) {
-        return orderTableRequests.stream()
-            .map(OrderTableRequest::getId)
+    private List<Long> extractOrderTableIds(List<TableId> tableIds) {
+        return tableIds.stream()
+            .map(TableId::getId)
             .collect(Collectors.toList());
     }
 

@@ -3,9 +3,8 @@ package kitchenpos.ordertable.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import kitchenpos.ordertable.event.GroupEvent;
-import kitchenpos.ordertable.event.GroupInfo;
-import kitchenpos.ordertable.event.UngroupEvent;
+import kitchenpos.tablegroup.event.GroupEvent;
+import kitchenpos.tablegroup.event.GroupInfo;
 import kitchenpos.ordertable.exception.DuplicateTablesException;
 import kitchenpos.ordertable.exception.IllegalGroupingTableStateException;
 import kitchenpos.ordertable.exception.NotEnoughTablesException;
@@ -20,6 +19,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import kitchenpos.ordertable.vo.NumberOfGuests;
+import kitchenpos.tablegroup.event.UngroupEvent;
 
 @ExtendWith(MockitoExtension.class)
 class GroupingEventListenerTest {

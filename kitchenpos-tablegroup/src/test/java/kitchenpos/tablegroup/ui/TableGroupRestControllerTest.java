@@ -12,6 +12,7 @@ import kitchenpos.tablegroup.common.CommonTestFixtures;
 import kitchenpos.tablegroup.domain.TableGroup;
 import kitchenpos.tablegroup.dto.TableGroupRequest;
 import kitchenpos.tablegroup.dto.TableGroupResponse;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -27,51 +28,51 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import kitchenpos.tablegroup.TableGroupTestFixtures;
 import kitchenpos.ordertable.vo.NumberOfGuests;
+import kitchenpos.tablegroup.dto.TableId;
 
 @WebMvcTest(TableGroupRestController.class)
 class TableGroupRestControllerTest {
 
-    private static final String BASE_PATH = "/api/table-groups";
+	private static final String BASE_PATH = "/api/table-groups";
 
-    @Autowired
-    private MockMvc mockMvc;
+	@Autowired
+	private MockMvc mockMvc;
 
-    @MockBean
-    private TableGroupService tableGroupService;
+	@MockBean
+	private TableGroupService tableGroupService;
 
-    @DisplayName("테이블 그룹 등록")
-    @Test
-    void create() throws Exception {
-        //given
-        List<OrderTable> orderTables = Arrays.asList(
-            new OrderTable(1L, new NumberOfGuests(1), true),
-            new OrderTable(2L, new NumberOfGuests(2), true));
-        TableGroupRequest requestTableGroup = TableGroupTestFixtures.convertToTableGroupRequest(
-            orderTables);
+	@DisplayName("테이블 그룹 등록")
+	@Test
+	void create() throws Exception {
+		//given
+		List<TableId> orderTables = Arrays.asList(
+			new TableId(1L),
+			new TableId(2L));
+		TableGroupRequest requestTableGroup = TableGroupTestFixtures.convertToTableGroupRequest(orderTables);
 
-        TableGroup tableGroup = new TableGroup(1L);
-        TableGroupResponse expectedTableGroup = TableGroupResponse.from(tableGroup);
+		TableGroup tableGroup = new TableGroup(1L);
+		TableGroupResponse expectedTableGroup = TableGroupResponse.from(tableGroup);
 
-        given(tableGroupService.create(any()))
-            .willReturn(expectedTableGroup);
+		given(tableGroupService.create(any()))
+			.willReturn(expectedTableGroup);
 
-        //when, then
-        mockMvc.perform(MockMvcRequestBuilders.post(BASE_PATH)
-                .content(CommonTestFixtures.asJsonString(requestTableGroup))
-                .contentType(MediaType.APPLICATION_JSON))
-            .andExpect(status().isCreated())
-            .andExpect(jsonPath("$.id").value(expectedTableGroup.getId()));
-    }
+		//when, then
+		mockMvc.perform(MockMvcRequestBuilders.post(BASE_PATH)
+				.content(CommonTestFixtures.asJsonString(requestTableGroup))
+				.contentType(MediaType.APPLICATION_JSON))
+			.andExpect(status().isCreated())
+			.andExpect(jsonPath("$.id").value(expectedTableGroup.getId()));
+	}
 
-    @DisplayName("테이블 그룹 해제")
-    @Test
-    void ungroup() throws Exception {
-        //given
-        Long tableGroupId = 1L;
+	@DisplayName("테이블 그룹 해제")
+	@Test
+	void ungroup() throws Exception {
+		//given
+		Long tableGroupId = 1L;
 
-        //when,then
-        mockMvc.perform(MockMvcRequestBuilders.delete(BASE_PATH + "/{tableGroupId}", tableGroupId)
-                .contentType(MediaType.APPLICATION_JSON))
-            .andExpect(status().isNoContent());
-    }
+		//when,then
+		mockMvc.perform(MockMvcRequestBuilders.delete(BASE_PATH + "/{tableGroupId}", tableGroupId)
+				.contentType(MediaType.APPLICATION_JSON))
+			.andExpect(status().isNoContent());
+	}
 }
